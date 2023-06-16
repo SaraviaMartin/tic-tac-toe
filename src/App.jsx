@@ -61,6 +61,12 @@ function App() {
     setWinner(null)
   }
 
+  const checkEndGame = (newBoard) => {
+    //revisamos si es empate
+    //si no hay mas espacios vacios en el tablero
+    return newBoard.every((square) => square !== null)
+  }
+
   const updateBoard = (index) =>{
     //no actualizamos esta posicion si ya tiene algo
     if (board[index] || winner ) return
@@ -75,8 +81,9 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if(newWinner){
       setWinner(newWinner)
-    } 
-    // else if(checkEndGame(newBoard)){}
+    } else if(checkEndGame(newBoard)){
+      setWinner(false) //empate
+    }
   }
 
   return  (
@@ -85,14 +92,14 @@ function App() {
       <button onClick={resetGame}>Restart Game</button>
       <section className="game">
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return(
               <Square
                 key={index}
                 index={index}
                 updateBoard={updateBoard}
               >
-                {board[index]}
+                {square}
               </Square>
             )
             
@@ -116,7 +123,6 @@ function App() {
                   : 'Gano: '
                 }
               </h2>
-              
               <header className="win">
                 {winner && <Square>{winner}</Square>}
               </header>
