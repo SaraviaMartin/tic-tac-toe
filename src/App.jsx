@@ -75,7 +75,8 @@ function App() {
     const newWinner = checkWinner(newBoard)
     if(newWinner){
       setWinner(newWinner)
-    } else if(checkEndGame(newBoard)){}
+    } 
+    // else if(checkEndGame(newBoard)){}
   }
 
   return  (
